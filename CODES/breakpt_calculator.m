@@ -18,7 +18,11 @@ function bp = breakpt_calculator(Video, rr)
 %% Determine thresholds from histogram of pixel intensity
 
     videoid = rr;
-    fullgray = rgb2gray(Video(videoid).timestack);
+    if size(Video(videoid).timestack,3) ~= 1
+        fullgray = rgb2gray(Video(videoid).timestack);
+    else
+        fullgray = Video(videoid).timestack;
+    end
     figure(videoid)
     h=histogram(fullgray);
     h.NumBins = 32;
