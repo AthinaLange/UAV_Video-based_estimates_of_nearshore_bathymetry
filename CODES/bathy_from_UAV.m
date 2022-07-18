@@ -17,10 +17,12 @@
 %       zerr - 95per confidence interval (bathy.fCombined.hErr) [alongshore coordinates, cross-shore coordinates]
 %       tide - tide level during hover (pulled from cBathy stucture array)
 %
-%   timestacks - located in [date_dir '/timestacks/data]
+%   timestacks - located in [date_dir '/timestacks/data] - download from GoogleDrive
 %
 %% Installation
 %
+%       Timestack images from GoogleDrive: <https://tinyurl.com/timestacks>
+%       Curve Fitting MATLAB toolbox
 %       <https://github.com/Coastal-Imaging-Research-Network/Support-Routines>
 %       <https://github.com/Coastal-Imaging-Research-Network/Station-Design-Toolbox>
 %
@@ -31,11 +33,6 @@
 %       breakpt_calculator
 %       create_composite_bathys
 %       calc_errors
-%
-%
-%
-%
-%
 %
 %% Output
 %   
