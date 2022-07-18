@@ -1,0 +1,167 @@
+#!/usr/bin/perl
+
+# calculate FOV for lenses, for several format cameras
+# why not just 35mm? I dunno, because someone would ask for it
+# if I didn't do it, I guess.
+
+$pi = 4 * atan2(1,1);
+
+$^ = TOP;
+$~ = LINE;
+
+foreach $i ( 0 .. $#ARGV ) {
+
+	$focal = $ARGV[$i];
+
+	printf "Focal length of lens: %fmm\n", $focal;
+	printf "   Hfov Hm\@1000 Vfov Vm\@1000 Dfov Dm\@1000 HxW    Sensor\n";
+
+	# 35 mm camera (standard image size)
+
+	$height = 24;
+	$width  = 36;
+	$text = "Standard 35mm format";
+
+	&dofov( $height, $width, $focal, $text );
+
+	# enter your own format here, set $height, $width, $text, and call &dofov
+	# Sony XC-77 CCD camera
+
+	$height = 6.6;
+	$width  = 8.8;
+	$text = "Sony XC-77 (uncalibrated)";
+
+	&dofov( $height, $width, $focal, $text );
+
+	$height = 3*6.5/4;;
+	$width  = 6.2;
+	$text = "Sony XC-75, Grasshopper, and other 1/2";
+
+	&dofov( $height, $width, $focal, $text );
+
+	$width  = 8.3;
+	$height = 3*$width/4;;
+	$text = "Pt.Grey Grass2 and other 2/3";
+
+	&dofov( $height, $width, $focal, $text );
+
+	$height = .75*3*6.5/4;;
+	$width  = 6.2*.75;
+	$text = "Micro-Pix  and other 1/3";
+
+	&dofov( $height, $width, $focal, $text );
+
+	$height = 8.7;
+	$width  = 9.9;
+	$text = "2/3\" 5MP";
+
+	&dofov( $height, $width, $focal, $text );
+
+	$height = 7;
+	$width  = 11;
+	$text = "1/1.2\" 2.3MP BFLY-23S6C";
+
+	&dofov( $height, $width, $focal, $text );
+
+	$height = 5.4;
+	$width  = 7.2;
+	$text = "1/1.8\" 4.5um";
+
+	&dofov( $height, $width, $focal, $text );
+
+
+}
+
+sub dofov {
+
+	local( $h, $w, $f, $text ) = @_;
+	local( $diag, $hfov, $wfov, $dfov );
+
+	# calculate the diagonal FOV, too.
+	$diag = int(sqrt($h*$h+$w*$w));
+
+	$hfov = &fov( $h, $f );
+	$wfov = &fov( $w, $f );
+	$dfov = &fov( $diag, $f );
+
+	$hdist = &fovft( $hfov );
+	$wdist = &fovft( $wfov );
+	$ddist = &fovft( $dfov );
+
+   # printf "  ";
+#	printf " %5.1f %5d", $wfov, $wdist;
+#	printf " %5.1f %5d", $hfov, $hdist;
+#	printf " %5.1f %5d", $dfov, $ddist;
+#	printf " %.1fX%.1f mm %s", $h, $w, $text;
+#	printf "\n";
+    write;
+
+
+}
+
+sub fov {
+
+	local( $K, $f ) = @_;
+	local( $W );
+
+	# from "Applied Photographic Optics" by Ray, p.112
+	$W = 2 * atan2( $K, 2*$f );
+
+	# convert to degrees
+	$W = $W * 180 / $pi; 
+
+	return( $W );
+
+}
+
+sub fovft {
+
+	local( $fov ) = @_;
+	local( $fovr, $fovinft );
+
+	# convert fov to radians, use only half of FOV to calculate leg
+	$fovr = ($fov/2) * $pi / 180;
+
+	# calculate the tangent (perl gots no tan())
+	$fovinft = sin( $fovr ) / cos( $fovr );
+
+	# and double to make full FOV, and at 1000 ft
+	$fovinft = 2 * 1000 * $fovinft;
+
+	return( $fovinft );
+
+}
+
+format TOP = 
+Focal length of lens: @<<  (Xm = ft@1000ft X fov)
+$focal, '@'
+  Hfov   Hm    Vfov   Vm    Dfov   Dm    H   W   Sensor
+.
+
+format LINE = 
+@###.# @###. @###.# @###. @###.# @###. @#.# @#.# @<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+$wfov, $wdist, $hfov, $hdist, $dfov, $ddist, $h, $w, $text;
+.
+
+__END__
+
+
+%   Copyright (C) 2017  Coastal Imaging Research Network
+%                       and Oregon State University
+
+%    This program is free software: you can redistribute it and/or  
+%    modify it under the terms of the GNU General Public License as 
+%    published by the Free Software Foundation, version 3 of the 
+%    License.
+
+%    This program is distributed in the hope that it will be useful,
+%    but WITHOUT ANY WARRANTY; without even the implied warranty of
+%    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%    GNU General Public License for more details.
+
+%    You should have received a copy of the GNU General Public License
+%    along with this program.  If not, see
+%                                <http://www.gnu.org/licenses/>.
+
+% CIRN: https://coastal-imaging-research-network.github.io/
+% CIL:  http://cil-www.coas.oregonstate.edu
