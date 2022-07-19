@@ -9,6 +9,7 @@ Nearshore bathymetry estimated from video acquired by a hovering UAV is compared
 
 This code is the companion to 'UAV video-based estimates of nearshore bathymetry'. 
 The code is set up to be self-contained once everything is downloaded/installed, and provides a number of example timestacks to run through the method. 
+Any questions or suggestions can be emailed to Athina Lange (alange@ucsd.edu).
 
 Everything can be run from bathy_from_UAV.m
 
@@ -28,53 +29,53 @@ Everything can be run from bathy_from_UAV.m
     
 # Output
   Video_bathy (structure)
-       date - YYYYMMDD
-       location - ie. 'Torrey' (pulled from timestack name)
-       flight - flight number
-       mop - mop number
-       x10 - [0:0.1:500]m
-       survey - z - Depth pulled from survey on MOP line
-       cbathy - 
-       tide - tide level (pulled from cbathy)
-       crests - 
-           t - time for wave tracks (sec)
-           x - cross-shore location for wave tracks (m) (0 is offshore, 500 is onshore)
-           c - phase speed of wave tracks - interp to x10
-       bp - breakpoint index of wave tracks
-       xshift - cross-shore shift index to match subaerial survey with subaqueous bathymetry
-       h_avg - interped to x10
-           lin - linear crest-tracking c = sqrt(gh)
-           nlin - nonlinear crest-tracking c = sqrt(gh(1+0.42))
-           bp - breakpoint transition crest-tracking c = sqrt(gh(1+gamma(x)))
-       gamma - transition between 0 and 0.42 for wave tracks (interped to x10)
-       gamma_mean - gamma(x) - mean of step function gamma for wave tracks
-       composite - constructed bathymetry with subaerial survey with ...
-          cbathy_hErr - cBathy with hErr < 0.5m 
-           cbathy_gamma - cBathy with breaking region removed
-           cbathy_nlin - cBathy_gamma with gamma(x) correction
-           cbathyCT - breakpoint transition crest-tracking surfzone bathymetry and cBathy offshore
-       lims - index of [1st BP valid onshore point, onshore cutoff of breaking, offshore cutoff of breaking]
-       Error - 
-           RMSE - root-mean-square error
-           Skill - skill of estimated versus observed survey bathymetry
-           Bias - bias of estimated bathymetry
+    date - YYYYMMDD
+    location - ie. 'Torrey' (pulled from timestack name)
+    flight - flight number
+    mop - mop number
+    x10 - [0:0.1:500]m
+    survey - z - Depth pulled from survey on MOP line
+    cbathy - 
+    tide - tide level (pulled from cbathy)
+    crests - 
+      t - time for wave tracks (sec)
+      x - cross-shore location for wave tracks (m) (0 is offshore, 500 is onshore)
+      c - phase speed of wave tracks - interp to x10
+    bp - breakpoint index of wave tracks
+    xshift - cross-shore shift index to match subaerial survey with subaqueous bathymetry
+    h_avg - interped to x10
+      lin - linear crest-tracking c = sqrt(gh)
+      nlin - nonlinear crest-tracking c = sqrt(gh(1+0.42))
+      bp - breakpoint transition crest-tracking c = sqrt(gh(1+gamma(x)))
+    gamma - transition between 0 and 0.42 for wave tracks (interped to x10)
+    gamma_mean - gamma(x) - mean of step function gamma for wave tracks
+    composite - constructed bathymetry with subaerial survey with ...
+      cbathy_hErr - cBathy with hErr < 0.5m 
+      cbathy_gamma - cBathy with breaking region removed
+      cbathy_nlin - cBathy_gamma with gamma(x) correction
+      cbathyCT - breakpoint transition crest-tracking surfzone bathymetry and cBathy offshore
+    lims - index of [1st BP valid onshore point, onshore cutoff of breaking, offshore cutoff of breaking]
+    Error - 
+      RMSE - root-mean-square error
+      Skill - skill of estimated versus observed survey bathymetry
+      Bias - bias of estimated bathymetry
 
-           insz - inner surfzone (between shoreline and end of active wave breaking - gamma(x)=0.42)
-           break - breaking region (active wave breaking region - where gamma changes)
-           sz - full surfzone region (between shoreline and wave breaking region)
-           full - [0 500] region
-           offshore - offshore region (between beginning of wave breaking and 500m - gamma(x) = 0)
+      insz - inner surfzone (between shoreline and end of active wave breaking - gamma(x)=0.42)
+      break - breaking region (active wave breaking region - where gamma changes)
+      sz - full surfzone region (between shoreline and wave breaking region)
+      full - [0 500] region
+      offshore - offshore region (between beginning of wave breaking and 500m - gamma(x) = 0)
            
-           cb - default cBathy (no region removed)
-           cb_hErr - cBathy with hErr > 0.5m removed     
-           cb_gamma - cBathy with breaking region removed
-           lin - linear crest-tracking
-           nlin - nonlinear crest-tracking
-           bp - breakpoint transition crest-tracking
-           comp_hErr - composite cBathy_hErr
-           comp_gamma - composite cBathy_gamma
-           comp_nlin - composite cBathy_nlin
-           comp_CT - composite BP + cBathy
+      cb - default cBathy (no region removed)
+      cb_hErr - cBathy with hErr > 0.5m removed     
+      cb_gamma - cBathy with breaking region removed
+      lin - linear crest-tracking
+      nlin - nonlinear crest-tracking
+      bp - breakpoint transition crest-tracking
+      comp_hErr - composite cBathy_hErr
+      comp_gamma - composite cBathy_gamma
+      comp_nlin - composite cBathy_nlin
+      comp_CT - composite BP + cBathy
 
 
 
