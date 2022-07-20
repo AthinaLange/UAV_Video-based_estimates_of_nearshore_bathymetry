@@ -14,8 +14,8 @@ hold on
 p(1)=plot(Video(rr).x10, Video(rr).survey.z, 'k', 'LineWidth', 4);
 p(2)=plot(Video(rr).x10, Video(rr).cbathy.z, 'Color', [0.5 0.5 0.5], 'LineWidth', 2);
 p(3)=plot(Video(rr).x10, Video(rr).cbathy.cbathy_hErr, 'r--', 'LineWidth', 3);
-p(4)=plot(Video(rr).x10, Video(rr).cbathy.cbathy_gamma, 'Color', colors(2,:), 'LineWidth', 2);
-p(5)=plot(Video(rr).x10, Video(rr).composite.cbathy_nlin,'--','Color', colors(1,:), 'LineWidth', 2);
+p(4)=plot(Video(rr).x10, Video(rr).cbathy.cbathy_gamma, 'Color', [0.8500 0.3250 0.0980], 'LineWidth', 2);
+p(5)=plot(Video(rr).x10, Video(rr).composite.cbathy_nlin,'--','Color', [0 0.4470 0.7410], 'LineWidth', 2);
 lg = legend(p, 'Survey','Default', 'hErr < 0.5', 'Breaking', 'Nonlinear', 'Location', 'southwest', 'Box', 'off', 'FontSize', textsz-2);
 xlabel('cBathy')
 ylabel('Elevation (NAVD88 m)')
@@ -28,9 +28,9 @@ set(gca, 'box', 'on')
 subplot(423)
 p(1)=plot(Video(rr).x10, Video(rr).survey.z, 'k', 'LineWidth', 4);
 hold on
-p(2)=plot(Video(rr).x10, Video(rr).h_avg.lin,  'Color', colors(2,:), 'LineWidth', 2);
-p(3)=plot(Video(rr).x10, Video(rr).h_avg.nlin, '--','Color', colors(1,:), 'LineWidth', 2);
-p(4)=plot(Video(rr).x10, Video(rr).h_avg.bp, 'Color', colors(5,:), 'LineWidth', 3);
+p(2)=plot(Video(rr).x10, Video(rr).h_avg.lin,  'Color', [0.8500 0.3250 0.0980], 'LineWidth', 2);
+p(3)=plot(Video(rr).x10, Video(rr).h_avg.nlin, '--','Color', [0 0.4470 0.7410], 'LineWidth', 2);
+p(4)=plot(Video(rr).x10, Video(rr).h_avg.bp, 'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3);
 lg = legend(p, 'Survey', 'Linear', 'Nonlinear', 'BP', 'Location', 'northeast', 'Box', 'off', 'FontSize', textsz-2, 'Location', 'southwest')
 xlabel('Crest-tracking')
 set(gca, 'FontSize', textsz)
@@ -43,9 +43,9 @@ subplot(425)
 p(1)=plot(Video(rr).x10, Video(rr).survey.z, 'k', 'LineWidth', 4);
 hold on
 p(2)=plot(Video(rr).x10, Video(rr).composite.cbathy_hErr, 'r--', 'LineWidth', 2);
-p(3)=plot(Video(rr).x10, Video(rr).composite.cbathy_gamma,  'Color', colors(2,:), 'LineWidth', 2);
-p(4)=plot(Video(rr).x10, Video(rr).composite.cbathy_nlin, '--','Color', colors(1,:), 'LineWidth', 2);
-p(5)=plot(Video(rr).x10, Video(rr).composite.cbathyCT, 'Color', colors(5,:), 'LineWidth', 3);
+p(3)=plot(Video(rr).x10, Video(rr).composite.cbathy_gamma,  'Color', [0.8500 0.3250 0.0980], 'LineWidth', 2);
+p(4)=plot(Video(rr).x10, Video(rr).composite.cbathy_nlin, '--','Color', [0 0.4470 0.7410], 'LineWidth', 2);
+p(5)=plot(Video(rr).x10, Video(rr).composite.cbathyCT, 'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3);
 lg = legend(p, 'Survey', 'cB hErr < 0.5', 'cB Breaking', 'cB Nonlinear', 'cBathyCT', 'Location', 'southwest', 'Box', 'off', 'FontSize', textsz-2);
 xlabel('Composite')
 set(gca, 'FontSize', textsz)
@@ -70,7 +70,7 @@ xlim([0 400])
    
 ax3 = axes('Position',[ax.Position(1) ax.Position(2)+ax.Position(4)/2 ax.Position(3) ax.Position(4)/2]);
 aa=find(~isnan(Video(rr).h_avg.bp));
-plot(ax3, Video(rr).x10(aa(1):aa(end)), Video(rr).gamma_mean(aa(1):aa(end)),'Color', colors(5,:), 'LineWidth', 3)
+plot(ax3, Video(rr).x10(aa(1):aa(end)), Video(rr).gamma_mean(aa(1):aa(end)),'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3)
 hold on
 plot(ax3, [100 100], [0 0.5], 'Color', [0.8 0.8 0.8])
 plot(ax3, [200 200], [0 0.5], 'Color', [0.8 0.8 0.8])
@@ -94,8 +94,8 @@ hold on
 plot(Video(rr).x10, Video(rr).survey.z, 'k', 'LineWidth', 4);
 p(1)=plot(Video(rr).x10, Video(rr).cbathy.z, 'Color', [0.5 0.5 0.5], 'LineWidth', 2);
 p(2)=plot(Video(rr).x10, Video(rr).cbathy.cbathy_hErr, 'r--', 'LineWidth', 3);
-p(3)=plot(Video(rr).x10, Video(rr).cbathy.cbathy_gamma, 'Color', colors(2,:), 'LineWidth', 2);
-p(4)=plot(Video(rr).x10, Video(rr).composite.cbathy_nlin,'--','Color', colors(1,:), 'LineWidth', 2);
+p(3)=plot(Video(rr).x10, Video(rr).cbathy.cbathy_gamma, 'Color', [0.8500 0.3250 0.0980], 'LineWidth', 2);
+p(4)=plot(Video(rr).x10, Video(rr).composite.cbathy_nlin,'--','Color', [0 0.4470 0.7410], 'LineWidth', 2);
 xlabel('cBathy')
 ylabel('Elevation (NAVD88 m)')
 set(gca, 'FontSize', textsz)
@@ -107,9 +107,9 @@ set(gca, 'box', 'on')
 subplot(424)
 p(1)=plot(Video(rr).x10, Video(rr).survey.z, 'k', 'LineWidth', 4);
 hold on
-p(2)=plot(Video(rr).x10, Video(rr).h_avg.lin,  'Color', colors(2,:), 'LineWidth', 2);
-p(3)=plot(Video(rr).x10, Video(rr).h_avg.nlin, '--','Color', colors(1,:), 'LineWidth', 2);
-p(4)=plot(Video(rr).x10, Video(rr).h_avg.bp, 'Color', colors(5,:), 'LineWidth', 3);
+p(2)=plot(Video(rr).x10, Video(rr).h_avg.lin,  'Color', [0.8500 0.3250 0.0980], 'LineWidth', 2);
+p(3)=plot(Video(rr).x10, Video(rr).h_avg.nlin, '--','Color', [0 0.4470 0.7410], 'LineWidth', 2);
+p(4)=plot(Video(rr).x10, Video(rr).h_avg.bp, 'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3);
 xlabel('Crest-tracking')
 set(gca, 'FontSize', textsz)
 ylabel('Elevation (NAVD88 m)')
@@ -121,9 +121,9 @@ subplot(426)
 p(1)=plot(Video(rr).x10, Video(rr).survey.z, 'k', 'LineWidth', 4);
 hold on
 p(2)=plot(Video(rr).x10, Video(rr).composite.cbathy_hErr, 'r--', 'LineWidth', 2);
-p(2)=plot(Video(rr).x10, Video(rr).composite.cbathy_gamma,  'Color', colors(2,:), 'LineWidth', 2);
-p(3)=plot(Video(rr).x10, Video(rr).composite.cbathy_nlin, '--','Color', colors(1,:), 'LineWidth', 2);
-p(4)=plot(Video(rr).x10, Video(rr).composite.cbathyCT, 'Color', colors(5,:), 'LineWidth', 3);
+p(2)=plot(Video(rr).x10, Video(rr).composite.cbathy_gamma,  'Color', [0.8500 0.3250 0.0980], 'LineWidth', 2);
+p(3)=plot(Video(rr).x10, Video(rr).composite.cbathy_nlin, '--','Color', [0 0.4470 0.7410], 'LineWidth', 2);
+p(4)=plot(Video(rr).x10, Video(rr).composite.cbathyCT, 'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3);
 xlabel('Composite')
 set(gca, 'FontSize', textsz)
 ylabel('Elevation (NAVD88 m)')
@@ -147,7 +147,7 @@ xlim([0 400])
    
 ax3 = axes('Position',[ax.Position(1) ax.Position(2)+ax.Position(4)/2 ax.Position(3) ax.Position(4)/2]);
 aa=find(~isnan(Video(rr).h_avg.bp));
-plot(ax3, Video(rr).x10(aa(1):aa(end)), Video(rr).gamma_mean(aa(1):aa(end)),'Color', colors(5,:), 'LineWidth', 3)
+plot(ax3, Video(rr).x10(aa(1):aa(end)), Video(rr).gamma_mean(aa(1):aa(end)),'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3)
 hold on
 plot(ax3, [100 100], [0 0.5], 'Color', [0.8 0.8 0.8])
 plot(ax3, [200 200], [0 0.5], 'Color', [0.8 0.8 0.8])
