@@ -19,7 +19,7 @@ Everything can be run from bathy_from_UAV.m
     - unzip all folders
   - Timestack images from GoogleDrive: <https://tinyurl.com/timestacks>
   - Curve Fitting MATLAB toolbox
-  - WaveCrestDetection GitHub to predict wave crests from new timestacks
+  - WaveCrestDetection GitHub to predict wave crests from new timestacks (<https://github.com/AthinaLange/WaveCrestDetection>)
 
 ## Input
   - ground-truth survey (minimum: subaerial survey - requires commenting out error calculations in bathy_inversion.m)
