@@ -77,3 +77,6 @@ Video_bathy (structure)
     - comp_nlin - composite cBathy_nlin
     - comp_CT - composite BP + cBathy
 
+%% Results
+Example of two hovers
+(Example_plot.png)
