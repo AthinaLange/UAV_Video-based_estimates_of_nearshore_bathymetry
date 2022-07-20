@@ -56,7 +56,7 @@ function [cutoff] = pixel_res(files, data_dir, local_dir)
 
     for ff = 1:length(files)
         aa = strsplit(char(string(files(ff))), '_');
-        cd([data_dir '/' char(string(aa(1))) '_' char(string(aa(2))) '/' char(string(aa(3)))])
+        cd(fullfile(data_dir, [char(string(aa(1))) '_' char(string(aa(2)))], [char(string(aa(3)))]))
         
         stats(ff).date = char(string(aa(1)));
         stats(ff).hover = str2double(char(string(aa(3))));
@@ -130,5 +130,5 @@ function [cutoff] = pixel_res(files, data_dir, local_dir)
             cutoff(jj).crest_track = squeeze(idy_ct(ff,:));
             cutoff(jj).cbathy = squeeze(idy_cb(ff,:));
     end
-    save(fullfile(data_dir, 'cutoff_pixres.mat'), 'cutoff')
+    save([data_dir 'cutoff_pixres.mat'], 'cutoff')
 end
