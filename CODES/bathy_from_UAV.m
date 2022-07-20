@@ -17,12 +17,10 @@
 %       zerr - 95per confidence interval (bathy.fCombined.hErr) [alongshore coordinates, cross-shore coordinates]
 %       tide - tide level during hover (pulled from cBathy stucture array)
 %
-%   timestacks - located in [date_dir '/timestacks/data] - download from GoogleDrive
+%   timestacks - located in [date_dir '/timestacks/data]
 %
 %% Installation
 %
-%       Timestack images from GoogleDrive: <https://tinyurl.com/timestacks>
-%       Curve Fitting MATLAB toolbox
 %       <https://github.com/Coastal-Imaging-Research-Network/Support-Routines>
 %       <https://github.com/Coastal-Imaging-Research-Network/Station-Design-Toolbox>
 %
@@ -44,6 +42,10 @@
 %       x10 - [0:0.1:500]m
 %       survey - z - Depth pulled from survey on MOP line
 %       cbathy - 
+%           z - cBathy direct output on given transect
+%           zerr - cBathy hErr 
+%           cbathy_hErr - cBathy with hErr > 0.5m region interpolated over
+%           cbathy_gamma - cBathy with breaking region removed for given variable gamma(x)
 %       tide - tide level (pulled from cbathy)
 %       crests - 
 %           t - time for wave tracks (sec)
@@ -97,14 +99,14 @@ local_dir = uigetdir(pwd,'Local Directory');
 cd(local_dir)
 
 % define location of data and codes
-code_dir = [local_dir '/CODES/'];
+code_dir = fullfile(local_dir, 'CODES');
 addpath(genpath(code_dir))
-data_dir = [local_dir '/DATA/'];
+data_dir = fullfile(local_dir, 'DATA');
 addpath(genpath(data_dir))
 
-
+%%
 %%% check that 'survey' is in correct format
-load([data_dir 'survey.mat'])
+load(fullfile(data_dir, 'survey.mat'))
 if ~isfield(survey, 'date')
     fprintf('Date of survey required\n')
 end
@@ -130,7 +132,7 @@ for ii = 1:length(survey)
 end
 
 %%% check that 'cbathy' is in correct format
-load([data_dir 'cbathy.mat'])
+load(fullfile(data_dir, 'cbathy.mat'))
 if ~isfield(cbathy, 'date')
     fprintf('Date of cBathy survey required\n')
 end
