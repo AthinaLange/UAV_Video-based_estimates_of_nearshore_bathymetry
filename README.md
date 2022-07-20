@@ -82,5 +82,7 @@ Video_bathy (structure)
     - comp_CT - composite BP + cBathy
 
 ## Results
+Breakpoint Detector Example
+![Breakpoint detection] [Breakpoint_ex.png]
 Example of two hovers
 ![Example_plot](Example_plot.png)
