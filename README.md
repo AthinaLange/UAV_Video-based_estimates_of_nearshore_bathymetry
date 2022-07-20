@@ -79,4 +79,4 @@ Video_bathy (structure)
 
 %% Results
 Example of two hovers
-(Example_plot.png)
+![Example_plot](Example_plot.png)
