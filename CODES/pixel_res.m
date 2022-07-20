@@ -130,5 +130,5 @@ function [cutoff] = pixel_res(files, data_dir, local_dir)
             cutoff(jj).crest_track = squeeze(idy_ct(ff,:));
             cutoff(jj).cbathy = squeeze(idy_cb(ff,:));
     end
-    save([data_dir 'cutoff_pixres.mat'], 'cutoff')
+    save(fullfile(data_dir, 'cutoff_pixres.mat'), 'cutoff')
 end
