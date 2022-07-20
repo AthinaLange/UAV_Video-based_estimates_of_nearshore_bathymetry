@@ -84,9 +84,9 @@ Video_bathy (structure)
 ## Results
 Breakpoint Detector Example
 ![Breakpoint detection](Breakpoint_ex.png)
-Blue dot: Unbroken, dot at end of track
-Green dot: Breakpoint location along wave track
-Red dot: Entire wave track broken, dot at beginning of track
+- Blue dot: Unbroken, dot at end of track
+- Green dot: Breakpoint location along wave track
+- Red dot: Entire wave track broken, dot at beginning of track
        
 Example of two hovers
 ![Example_plot](Example_plot.png)
