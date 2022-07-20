@@ -35,7 +35,11 @@ Video_bathy (structure)
   - mop - mop number
   - x10 - [0:0.1:500]m
   - survey - z - Depth pulled from survey on MOP line
-  - cbathy - 
+  - cbathy -
+    - z - cBathy direct output on given transect
+    - zerr - cBathy hErr 
+    - cbathy_hErr - cBathy with hErr > 0.5m region interpolated over
+    - cbathy_gamma - cBathy with breaking region removed for given variable gamma(x)
   - tide - tide level (pulled from cbathy)
   - crests - 
     - t - time for wave tracks (sec)
@@ -77,6 +81,6 @@ Video_bathy (structure)
     - comp_nlin - composite cBathy_nlin
     - comp_CT - composite BP + cBathy
 
-%% Results
+## Results
 Example of two hovers
 ![Example_plot](Example_plot.png)
