@@ -181,5 +181,8 @@ clear ii
 
 bathy_inversion
 
-
 close all
+
+%% bathy example plots
+
+bathy_plots
