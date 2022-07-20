@@ -85,7 +85,7 @@
 
 %% Determine number of timestacks/bathys to process
 % find all timestacks that have been processed
-files = dir([data_dir 'timestacks/processed/']);
+files = dir(fullfile(data_dir, 'timestacks', 'processed'));
 
 % remove empty files
 for nn = length(files):-1:1 
@@ -95,7 +95,7 @@ for nn = length(files):-1:1
 end
 Video = struct('date',repmat({''},length(files),1));
 
-setup_nctoolbox
+%setup_nctoolbox
 %% get pixel resolution
 [cutoff] = pixel_res(files, data_dir, local_dir);
 %%
@@ -144,15 +144,19 @@ for rr = 1:length(files)
         %% Compute wave celerity from timestack wave crests
         %%% Load timestack
         if Video(rr).flight < 10
-            gt = imread([data_dir 'timestacks/processed/' char(string(Video(rr).date)) '_' char(Video(rr).location) '_0' char(string(Video(rr).flight)) '_' char(string(Video(rr).mop)) '_prediction.jpg']);
-            fi = imread([data_dir 'timestacks/data/' char(string(Video(rr).date)) '_' char(Video(rr).location) '_0' char(string(Video(rr).flight)) '_' char(string(Video(rr).mop)) '.png']);
+            gt = imread(fullfile(data_dir, 'timestacks','processed', [char(string(Video(rr).date)) '_' char(Video(rr).location) '_0' char(string(Video(rr).flight)) '_' char(string(Video(rr).mop)) '_prediction.jpg']));
+            [fi,fcmap] = imread(fullfile(data_dir, 'timestacks','data', [char(string(Video(rr).date)) '_' char(Video(rr).location) '_0' char(string(Video(rr).flight)) '_' char(string(Video(rr).mop)) '.png']));
         else
-            gt = imread([data_dir 'timestacks/processed/' char(string(Video(rr).date)) '_' char(Video(rr).location) '_' char(string(Video(rr).flight)) '_' char(string(Video(rr).mop)) '_prediction.jpg']);
-            fi = imread([data_dir 'timestacks/data/' char(string(Video(rr).date)) '_' char(Video(rr).location) '_' char(string(Video(rr).flight)) '_' char(string(Video(rr).mop)) '.png']);
+            gt = imread(fullfile(data_dir, 'timestacks','processed', [char(string(Video(rr).date)) '_' char(Video(rr).location) '_' char(string(Video(rr).flight)) '_' char(string(Video(rr).mop)) '_prediction.jpg']));
+            [fi,fcmap] = imread(fullfile(data_dir, 'timestacks','data', [char(string(Video(rr).date)) '_' char(Video(rr).location) '_' char(string(Video(rr).flight)) '_' char(string(Video(rr).mop)) '.png']));
         end   
         % wave crests should be a binary image
         if size(gt,3) ~= 1
             gt = rgb2gray(gt); 
+        end
+        % check that all png 24bit
+        if ~isempty(fcmap)
+            fi = ind2rgb(fi,fcmap);
         end
                     
         Video(rr).timestack = fi;
@@ -393,7 +397,7 @@ for rr = 1:length(files)
 
 
         %%% Cutoff offshore based on pixel resolution
-        load([data_dir 'cutoff_pixres.mat'])
+        load(fullfile(data_dir, 'cutoff_pixres.mat'))
         id = find([cutoff.date] == Video(rr).date & [cutoff.hover] == Video(rr).flight);
         id_mop = find(cutoff(id).mopgrid == Video(rr).mop);
         if ~isnan(cutoff(id).crest_track(id_mop))
@@ -520,8 +524,8 @@ for rr = 1:length(files)
             Video_short = rmfield(Video_short, 'timestack');
             Video_short = rmfield(Video_short, 'waves');
             [Video(1:rr).timestack] = deal([]); [Video(1:rr).waves] = deal([]); 
-            save([data_dir 'Video_temp'], 'Video_short', '-v7.3')
-        end
+            save(fullfile(data_dir, 'Video_temp.mat'), 'Video_short', '-v7.3')
+  end
 
     else
         sprintf('No survey data for transect %i on %i at %s', mop, date, location);
@@ -539,6 +543,6 @@ Video_short = rmfield(Video_short, 'timestack');
 Video_short = rmfield(Video_short, 'waves');
 clear Video
 Video_bathy = Video_short;
-save([data_dir 'composite_bathy'], 'Video_bathy', '-v7.3')
+save(fullfile(data_dir, 'composite_bathy.mat'), 'Video_bathy', '-v7.3')
 
 clearvars -except Video_bathy *_dir 

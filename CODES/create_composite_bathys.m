@@ -27,7 +27,12 @@ function [Video] = create_composite_bathys(Video, rr, gamma)
 %% Get cBathy with gamma criteron - including offshore and onshore breaking cutoff
     gamma_profile = Video(rr).gamma_mean; % Not applying xshift because was computed from unshift data - cBathy also unshifted
     aa = find(min(abs(gamma_profile-(gamma-0.01)))==abs(gamma_profile-(gamma-0.01))); id_shore = aa(end); % onshore
-    aa = find(round(gamma_profile,2)==0); id_ocean = aa(1)+250; % offshore + window/2
+    aa = find(round(gamma_profile,2)==0); 
+    if isempty(aa)
+        aa = find(round(gamma_profile,2)==min(round(gamma_profile,2)));
+    end
+    
+    id_ocean = aa(1)+250; % offshore + window/2
      
     cbathy_clean = Video(rr).cbathy.cbathy_hErr; xcb_temp = Video(rr).x10'; cbathy_clean(id_shore+1:id_ocean)=NaN; 
     xcb_temp(isnan(cbathy_clean))=[]; cbathy_clean(isnan(cbathy_clean))=[];

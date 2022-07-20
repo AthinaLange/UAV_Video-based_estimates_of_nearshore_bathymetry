@@ -18,11 +18,7 @@ function bp = breakpt_calculator(Video, rr)
 %% Determine thresholds from histogram of pixel intensity
 
     videoid = rr;
-    if size(Video(videoid).timestack,3) ~= 1
-        fullgray = rgb2gray(Video(videoid).timestack);
-    else
-        fullgray = Video(videoid).timestack;
-    end
+    fullgray = rgb2gray(Video(videoid).timestack);
     figure(videoid)
     h=histogram(fullgray);
     h.NumBins = 32;
@@ -149,7 +145,7 @@ function bp = breakpt_calculator(Video, rr)
                 if any(grad1(maxgrad_loc) > grad1(maxgrad_loc_pos)*.9)
                     maxgrad_opt2 = maxgrad_loc(find(grad1(maxgrad_loc) > grad1(maxgrad_loc_pos)*.9)); 
                     maxgrad_opt2(maxgrad_opt2 > maxgrad_loc_pos)=[]; % remove any points shoreward of the initial max gradient
-                    if length(maxgrad_opt2) > 0
+                    if ~isempty(maxgrad_opt2) 
                         maxgrad_loc_pos = maxgrad_opt2(1);
                     end
                     
@@ -206,7 +202,7 @@ function bp = breakpt_calculator(Video, rr)
                         maxgrad_loc = maxgrad_loc(find(grad1(maxgrad_loc)>grad_cutoff));
                     end
                     local_max = find(islocalmax(asmooth2)==1); local_max(local_max < maxgrad_loc(1))=[];;
-                    if length(local_max) > 0 && asmooth2(local_max(1)) > highthres
+                    if ~isempty(local_max) && asmooth2(local_max(1)) > highthres
                         maxgrad_loc_pos = maxgrad_loc(1);
                     end
                 end
@@ -242,27 +238,27 @@ function bp = breakpt_calculator(Video, rr)
             end % end of 1st pass clean blue or white
         end % end of loop through wave tracks
 %%% Plot        
-%         figure(videoid);clf
-%         image(Video(videoid).timestack)
-%         hold on
-%         plot(Video(videoid).crests.t.*10,Video(videoid).crests.x.*10, 'r')
-%         
-%         for id = 1:size(Video(videoid).crests.t,2)
-%             idx = Video(videoid).crests.x(:,id).*10;
-%             idt=Video(videoid).crests.t(:,id).*10;
-%             idx(isnan(idx))=[];
-%             idt(isnan(idt))=[];
-%             if bp(id)~=0
-%                 if bp(id) == 5001
-%                     plot(idt(end),idx(end), 'b.', 'MarkerSize', 30)
-%                 elseif isnan(bp(id))
-%                     plot(idt(1),idx(1), 'r.', 'MarkerSize', 30)
-%                 else
-%                     maxloc_id = find(bp(id) == idx);
-%                     plot(idt(maxloc_id), idx(maxloc_id), 'g.', 'MarkerSize', 30)
-%                 end
-%             end
-%         end
+        figure(videoid);clf
+        image(Video(videoid).timestack)
+        hold on
+        plot(Video(videoid).crests.t.*10,Video(videoid).crests.x.*10, 'r')
+        
+        for id = 1:size(Video(videoid).crests.t,2)
+            idx = Video(videoid).crests.x(:,id).*10;
+            idt=Video(videoid).crests.t(:,id).*10;
+            idx(isnan(idx))=[];
+            idt(isnan(idt))=[];
+            if bp(id)~=0
+                if bp(id) == 5001
+                    plot(idt(end),idx(end), 'b.', 'MarkerSize', 30)
+                elseif isnan(bp(id))
+                    plot(idt(1),idx(1), 'r.', 'MarkerSize', 30)
+                else
+                    maxloc_id = find(bp(id) == idx);
+                    plot(idt(maxloc_id), idx(maxloc_id), 'g.', 'MarkerSize', 30)
+                end
+            end
+        end
             
     else % if no high threshold present - return all 0
         bp = 0;
