@@ -20,9 +20,10 @@
 %   timestacks - located in [date_dir '/timestacks/data]
 %
 %% Installation
-%
-%       <https://github.com/Coastal-Imaging-Research-Network/Support-Routines>
-%       <https://github.com/Coastal-Imaging-Research-Network/Station-Design-Toolbox>
+%       see readme file
+%       For more relevant codes:
+%           <https://github.com/Coastal-Imaging-Research-Network/Support-Routines>
+%           <https://github.com/Coastal-Imaging-Research-Network/Station-Design-Toolbox>
 %
 %% Dependencies
 %   bathy_inversion
