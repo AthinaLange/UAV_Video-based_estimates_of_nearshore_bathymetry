@@ -17,7 +17,7 @@ Everything can be run from bathy_from_UAV.m
 ## Installation:
   - current GitHub repository
     - unzip all folders
-  - Timestack images from GoogleDrive: <https://tinyurl.com/timestacks>
+  - Timestack images from GoogleDrive: <https://tinyurl.com/timestack>
   - Curve Fitting MATLAB toolbox
   - Image Processing Toolbox MATLAB toolbox
   - WaveCrestDetection GitHub to predict wave crests from new timestacks (<https://github.com/AthinaLange/WaveCrestDetection>)
