@@ -27,7 +27,7 @@
 % 
 % 
 %%
-function [cutoff] = pixel_res(files, data_dir, local_dir)
+function [cutoff] = pixel_res(files, data_dir, local_dir, dx)
     %% Camera Specs:
     nameCam = 'THEIA';  % String that represents the name of the camera
                                  %   E.g. 'Flir Boson 640',...
@@ -51,8 +51,6 @@ function [cutoff] = pixel_res(files, data_dir, local_dir)
     end
 
     files = unique(append(aa(:,1), '_', aa(:,2), '_',aa(:,3)));
-
-
 
     for ff = 1:length(files)
         aa = strsplit(char(string(files(ff))), '_');
@@ -91,13 +89,14 @@ function [cutoff] = pixel_res(files, data_dir, local_dir)
             stats(ff).res.dcRange = dcRange;
     end
     
+    stats_full = stats;
     % find range values for crest-tracking and cBathy
     for ff = 1:length(stats)
             stats(ff).res.range_ct = NaN(length(stats(ff).res.x), length(stats(ff).res.x));
-            stats(ff).res.range_ct(find(stats(ff).res.daRange < 0.2 & stats(ff).res.dcRange < 0.2)) = 1;
+            stats(ff).res.range_ct(find(stats(ff).res.daRange < 3*dx & stats(ff).res.dcRange < 3*dx)) = 1;
     
             stats(ff).res.range_cb = NaN(length(stats(ff).res.x), length(stats(ff).res.x));
-            stats(ff).res.range_cb(find(stats(ff).res.daRange < 2 & stats(ff).res.dcRange < 2)) = 1;
+            stats(ff).res.range_cb(find(stats(ff).res.daRange < 3*5 & stats(ff).res.dcRange < 3*5)) = 1;
     end
     
     
@@ -124,11 +123,15 @@ function [cutoff] = pixel_res(files, data_dir, local_dir)
     jj=0;
     for ff = 1:length(stats)
             jj=jj+1;
+           
             cutoff(jj).date = str2num(stats(ff).date(1:8));
+            if cutoff(jj).date == 20210709; mop_bb=668; elseif cutoff(jj).date == 20201014; mop_bb=513; else; mop_bb = 582;end
+
             cutoff(jj).hover = stats(ff).hover;
-            cutoff(jj).mopgrid = mopgrid/100+582; % grid around MOP 582 - Torrey Pines
+            cutoff(jj).mopgrid = mopgrid/100+mop_bb; % grid around MOP 582 - Torrey Pines
             cutoff(jj).crest_track = squeeze(idy_ct(ff,:));
             cutoff(jj).cbathy = squeeze(idy_cb(ff,:));
+           % cutoff(jj).stats = stats_full(jj);
     end
-    save([data_dir 'cutoff_pixres.mat'], 'cutoff')
+    save(fullfile(data_dir, 'cutoff_pixres.mat'), 'cutoff', '-v7.3')
 end
