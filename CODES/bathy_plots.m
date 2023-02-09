@@ -1,9 +1,9 @@
 %% Generate an example bathymetry plot to visualize all estimated bathymetries
 % Pick two example hovers
-r1 = 4
-r2 = 20
+r1 = 5
+r2 = 29
 textsz = 14;
-
+Video_bathy=Video;
 figure(1);clf
 subplot(421)
 rr = r1;
@@ -29,9 +29,9 @@ set(gca, 'box', 'on')
 subplot(423)
 p(1)=plot(Video_bathy(rr).x10, Video_bathy(rr).survey.z, 'k', 'LineWidth', 4);
 hold on
-p(2)=plot(Video_bathy(rr).x10, Video_bathy(rr).h_avg.lin,  'Color', [0.8500 0.3250 0.0980], 'LineWidth', 2);
-p(3)=plot(Video_bathy(rr).x10, Video_bathy(rr).h_avg.nlin, '--','Color', [0 0.4470 0.7410], 'LineWidth', 2);
-p(4)=plot(Video_bathy(rr).x10, Video_bathy(rr).h_avg.bp, 'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3);
+p(2)=plot(Video_bathy(rr).x5, Video_bathy(rr).h_avg.lin,  'Color', [0.8500 0.3250 0.0980], 'LineWidth', 2);
+p(3)=plot(Video_bathy(rr).x5, Video_bathy(rr).h_avg.nlin, '--','Color', [0 0.4470 0.7410], 'LineWidth', 2);
+p(4)=plot(Video_bathy(rr).x5, Video_bathy(rr).h_avg.bp, 'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3);
 lg = legend(p, 'Survey', 'Linear', 'Nonlinear', 'BP', 'Location', 'northeast', 'Box', 'off', 'FontSize', textsz-2, 'Location', 'southwest')
 xlabel('Crest-tracking')
 set(gca, 'FontSize', textsz)
@@ -70,8 +70,7 @@ xlabel('Cross-shore Distance (m)', 'FontSize', textsz-4);
 xlim([0 400])
    
 ax3 = axes('Position',[ax.Position(1) ax.Position(2)+ax.Position(4)/2 ax.Position(3) ax.Position(4)/2]);
-aa=find(~isnan(Video_bathy(rr).h_avg.bp));
-plot(ax3, Video_bathy(rr).x10(aa(1):aa(end)), Video_bathy(rr).gamma_mean(aa(1):aa(end)),'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3)
+plot(ax3, Video_bathy(rr).x10, Video_bathy(rr).gamma_mean,'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3)
 hold on
 plot(ax3, [100 100], [0 0.5], 'Color', [0.8 0.8 0.8])
 plot(ax3, [200 200], [0 0.5], 'Color', [0.8 0.8 0.8])
@@ -108,9 +107,9 @@ set(gca, 'box', 'on')
 subplot(424)
 p(1)=plot(Video_bathy(rr).x10, Video_bathy(rr).survey.z, 'k', 'LineWidth', 4);
 hold on
-p(2)=plot(Video_bathy(rr).x10, Video_bathy(rr).h_avg.lin,  'Color', [0.8500 0.3250 0.0980], 'LineWidth', 2);
-p(3)=plot(Video_bathy(rr).x10, Video_bathy(rr).h_avg.nlin, '--','Color', [0 0.4470 0.7410], 'LineWidth', 2);
-p(4)=plot(Video_bathy(rr).x10, Video_bathy(rr).h_avg.bp, 'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3);
+p(2)=plot(Video_bathy(rr).x5, Video_bathy(rr).h_avg.lin,  'Color', [0.8500 0.3250 0.0980], 'LineWidth', 2);
+p(3)=plot(Video_bathy(rr).x5, Video_bathy(rr).h_avg.nlin, '--','Color', [0 0.4470 0.7410], 'LineWidth', 2);
+p(4)=plot(Video_bathy(rr).x5, Video_bathy(rr).h_avg.bp, 'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3);
 xlabel('Crest-tracking')
 set(gca, 'FontSize', textsz)
 ylabel('Elevation (NAVD88 m)')
@@ -147,8 +146,7 @@ xlabel('Cross-shore Distance (m)', 'FontSize', textsz-4);
 xlim([0 400])
    
 ax3 = axes('Position',[ax.Position(1) ax.Position(2)+ax.Position(4)/2 ax.Position(3) ax.Position(4)/2]);
-aa=find(~isnan(Video_bathy(rr).h_avg.bp));
-plot(ax3, Video_bathy(rr).x10(aa(1):aa(end)), Video_bathy(rr).gamma_mean(aa(1):aa(end)),'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3)
+plot(ax3, Video_bathy(rr).x10, Video_bathy(rr).gamma_mean,'Color', [0.4660 0.6740 0.1880], 'LineWidth', 3)
 hold on
 plot(ax3, [100 100], [0 0.5], 'Color', [0.8 0.8 0.8])
 plot(ax3, [200 200], [0 0.5], 'Color', [0.8 0.8 0.8])
